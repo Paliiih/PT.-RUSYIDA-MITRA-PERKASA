@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — PT Rusyida Mitra Perkasa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0F2A3D;
+    --navy-deep: #091C29;
+    --gold: #C9A24B;
+    --gold-light: #E4C77A;
+    --cream: #FAFAF7;
+    --ink: #1C2B33;
+    --slate: #5B6B73;
+    --line: #E4E1D8;
+    --danger:#C0392B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);line-height:1.5;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;color:var(--navy);}
+  a{color:inherit;}
+
+  /* ================= LOGIN ================= */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,var(--navy-deep) 0%, var(--navy) 60%, #14374D 100%);
+    padding:20px;
+  }
+  .login-box{
+    background:#fff;border-radius:16px;padding:40px 34px;width:100%;max-width:380px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.4);
+  }
+  .login-box .logo-mark{
+    width:52px;height:52px;border-radius:10px;margin:0 auto 18px;background:var(--cream);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;border:1px solid var(--line);
+  }
+  .login-box .logo-mark img{width:100%;height:100%;object-fit:contain;}
+  .login-box h2{text-align:center;font-size:22px;margin-bottom:6px;}
+  .login-box p.sub{text-align:center;color:var(--slate);font-size:13.5px;margin-bottom:26px;}
+  label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:6px;}
+  input[type=text],input[type=password],input[type=date],textarea,select{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;
+    font-family:inherit;font-size:14.5px;margin-bottom:16px;background:#fff;color:var(--ink);
+  }
+  textarea{resize:vertical;min-height:80px;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 22px;border-radius:8px;font-weight:600;font-size:14.5px;
+    border:none;cursor:pointer;transition:.2s;
+  }
+  .btn-primary{background:var(--gold);color:var(--navy-deep);width:100%;}
+  .btn-primary:hover{background:var(--gold-light);}
+  .btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--navy);}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+  .btn-danger{background:var(--danger);color:#fff;padding:9px 16px;font-size:13px;}
+  .btn-danger:hover{opacity:.85;}
+  .btn-small{padding:9px 16px;font-size:13px;}
+  #loginError{color:var(--danger);font-size:13px;margin:-8px 0 14px;display:none;}
+
+  /* ================= LAYOUT ================= */
+  #dashboard{display:none;min-height:100vh;}
+  .app-shell{display:flex;min-height:100vh;}
+
+  .sidebar{
+    width:250px;flex-shrink:0;background:var(--navy-deep);color:#fff;
+    display:flex;flex-direction:column;padding:24px 16px;
+  }
+  .sidebar-brand{display:flex;align-items:center;gap:12px;padding:0 8px 24px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:18px;}
+  .sidebar-brand .logo-mark{width:40px;height:40px;border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:3px;flex-shrink:0;}
+  .sidebar-brand .logo-mark img{width:100%;height:100%;object-fit:contain;}
+  .sidebar-brand-text{font-family:'Fraunces',serif;font-weight:600;font-size:13.5px;line-height:1.3;}
+  .sidebar-brand-text span{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:11.5px;color:var(--gold-light);margin-top:2px;}
+  .sidebar-nav{display:flex;flex-direction:column;gap:4px;flex:1;}
+  .nav-item{
+    display:flex;align-items:center;gap:10px;justify-content:flex-start;
+    background:none;border:none;color:#C7D1D8;text-align:left;
+    padding:12px 14px;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;
+    text-decoration:none;width:100%;transition:.15s;
+  }
+  .nav-item:hover{background:rgba(255,255,255,.06);color:#fff;}
+  .nav-item.active{background:var(--gold);color:var(--navy-deep);font-weight:700;}
+  .nav-item .badge{
+    margin-left:auto;background:rgba(255,255,255,.18);color:#fff;font-size:11.5px;
+    padding:2px 8px;border-radius:20px;font-weight:700;
+  }
+  .nav-item.active .badge{background:var(--navy-deep);color:#fff;}
+  .sidebar-bottom{display:flex;flex-direction:column;gap:4px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);}
+
+  .main-content{flex:1;padding:32px 40px 80px;max-width:1100px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel-header{margin-bottom:26px;}
+  .panel-header h2{font-size:24px;margin-bottom:6px;}
+  .panel-header p{color:var(--slate);font-size:14px;}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px;margin-bottom:26px;}
+  .card h3{font-size:17px;margin-bottom:4px;}
+  .card p.hint{color:var(--slate);font-size:13.5px;margin-bottom:20px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .notice{
+    background:#FFF7E6;border:1px solid var(--gold-light);color:#6B4E14;
+    padding:14px 16px;border-radius:10px;font-size:13.5px;margin-bottom:22px;line-height:1.6;
+  }
+  code{background:#F0EEE6;padding:1px 6px;border-radius:4px;font-size:12.5px;}
+
+  .job-row{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+    padding:16px 0;border-bottom:1px solid var(--line);
+  }
+  .job-row:last-child{border-bottom:none;}
+  .job-row h4{font-size:15.5px;color:var(--ink);margin-bottom:4px;}
+  .job-row .meta{font-size:12.5px;color:var(--slate);}
+  .job-row .actions{display:flex;gap:8px;flex-shrink:0;}
+  .btn-edit{background:var(--navy);color:#fff;padding:9px 16px;font-size:13px;}
+  .btn-edit:hover{background:var(--navy-deep);}
+  .empty{color:var(--slate);font-size:14px;padding:10px 0;}
+  .top-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+
+  /* ===== DATA PENDAFTARAN ===== */
+  .stat-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:14px;}
+  .stat-total{font-size:15px;color:var(--ink);}
+  .stat-total strong{color:var(--gold);font-size:20px;}
+  .pendaftar-card{border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-bottom:18px;background:#fff;}
+  .pendaftar-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .pendaftar-name{font-size:17px;font-weight:700;color:var(--navy);}
+  .pendaftar-sub{font-size:13px;color:var(--slate);margin-top:3px;}
+  .pendaftar-sub strong{color:var(--ink);}
+  .pendaftar-time{font-size:12.5px;color:var(--slate);text-align:right;}
+  .pendaftar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 16px;margin-bottom:16px;}
+  .pdf-item label{display:block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--slate);margin-bottom:4px;}
+  .pdf-item div{font-size:14px;color:var(--ink);word-break:break-word;}
+  .pendaftar-actions{display:flex;gap:10px;}
+  .wa-link{color:#25D366;font-weight:600;font-size:13.5px;display:inline-flex;align-items:center;gap:6px;}
+  .loading-msg, .error-msg{color:var(--slate);font-size:14px;padding:20px 0;}
+  .error-msg{color:var(--danger);}
+
+  .config-box{border:1px dashed var(--line);border-radius:12px;padding:20px;margin-bottom:22px;background:#FBFAF6;}
+  .config-box label{margin-bottom:8px;}
+  .config-box input{margin-bottom:10px;}
+
+  @media(max-width:900px){
+    .app-shell{flex-direction:column;}
+    .sidebar{width:100%;flex-direction:row;flex-wrap:wrap;align-items:center;padding:14px;}
+    .sidebar-brand{border-bottom:none;margin-bottom:0;padding-bottom:0;flex:1;min-width:200px;}
+    .sidebar-nav{flex-direction:row;flex-wrap:wrap;flex:none;width:100%;margin-top:12px;}
+    .sidebar-bottom{flex-direction:row;border-top:none;padding-top:8px;width:100%;}
+    .main-content{padding:24px 18px 60px;}
+    .form-row{grid-template-columns:1fr;}
+    .pendaftar-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:520px){
+    .pendaftar-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="logo-mark"><img src="logo_1.jpeg" alt="Logo"></div>
+    <h2>Admin Panel</h2>
+    <p class="sub">PT Rusyida Mitra Perkasa</p>
+    <form id="loginForm">
+      <label for="loginUser">Username</label>
+      <input type="text" id="loginUser" autocomplete="username" required>
+      <label for="loginPass">Password</label>
+      <input type="password" id="loginPass" autocomplete="current-password" required>
+      <div id="loginError">Username atau password salah.</div>
+      <button type="submit" class="btn btn-primary">Masuk</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="dashboard">
+  <div class="app-shell">
+
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="logo-mark"><img src="logo_1.jpeg" alt="Logo"></div>
+        <div class="sidebar-brand-text">PT Rusyida Mitra Perkasa<span>Panel Admin</span></div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-panel="loker">📄&nbsp; Kelola Loker</button>
+        <button class="nav-item" data-panel="pendaftaran">🧾&nbsp; Data Pendaftaran <span class="badge" id="pendaftaranBadge">0</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <a href="index.html" target="_blank" class="nav-item">↗&nbsp; Lihat Website</a>
+        <a href="#" id="logoutBtn" class="nav-item">⎋&nbsp; Keluar</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- ===== PANEL: KELOLA LOKER ===== -->
+      <section id="panel-loker" class="panel active">
+        <div class="panel-header">
+          <h2>Kelola Loker</h2>
+          <p>Tambah, ubah, atau hapus lowongan yang tampil di halaman Lowongan Kerja.</p>
+        </div>
+
+        <div id="lokerNotConfigured" class="card" style="display:none;">
+          <h3>Belum tersambung ke Google Sheets</h3>
+          <p class="hint">Tempel <strong>Web App URL</strong> dari Google Apps Script kamu di bawah ini. URL yang sama juga otomatis dipakai buat Data Pendaftaran.</p>
+          <div class="config-box">
+            <label>Web App URL</label>
+            <input type="text" id="lokerSheetUrlInput" placeholder="https://script.google.com/macros/s/xxxxx/exec">
+            <button id="saveLokerSheetUrl" class="btn btn-primary" style="width:auto;">Simpan & Muat Data</button>
+          </div>
+        </div>
+
+        <div id="lokerContent" style="display:none;">
+          <div class="notice">
+            <strong>Sekarang otomatis live:</strong> begitu kamu simpan/edit/hapus lowongan di bawah, perubahan langsung
+            tersimpan ke Google Sheets dan otomatis muncul di halaman Lowongan Kerja — tidak perlu download/upload file lagi.
+          </div>
+
+          <div class="card">
+            <h3 id="formTitle">Tambah Lowongan Baru</h3>
+            <p class="hint">Isi detail lowongan di bawah ini.</p>
+            <form id="jobForm">
+              <input type="hidden" id="jobId">
+              <div class="form-row">
+                <div>
+                  <label>Judul Posisi</label>
+                  <input type="text" id="jJudul" placeholder="Contoh: Security / Satpam" required>
+                </div>
+                <div>
+                  <label>Lokasi</label>
+                  <input type="text" id="jLokasi" placeholder="Contoh: Semarang" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div>
+                  <label>Tipe Pekerjaan</label>
+                  <select id="jTipe">
+                    <option>Outsourcing - Full Time</option>
+                    <option>Outsourcing - Part Time</option>
+                    <option>Kontrak</option>
+                    <option>Rekrutmen Langsung</option>
+                  </select>
+                </div>
+                <div>
+                  <label>Batas Lamaran</label>
+                  <input type="date" id="jDeadline">
+                </div>
+              </div>
+              <label>Deskripsi Singkat</label>
+              <textarea id="jDeskripsi" placeholder="Jelaskan singkat pekerjaan dan tanggung jawabnya"></textarea>
+              <label>Kualifikasi</label>
+              <textarea id="jKualifikasi" placeholder="Contoh: Pria, usia 20-35 tahun, sehat jasmani & rohani"></textarea>
+              <div style="display:flex;gap:10px;">
+                <button type="submit" class="btn btn-primary" style="width:auto;">Simpan Lowongan</button>
+                <button type="button" id="cancelEdit" class="btn btn-outline" style="display:none;">Batal Edit</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card">
+            <div class="top-actions">
+              <button id="refreshLokerBtn" class="btn btn-outline btn-small">↺ Muat Ulang</button>
+              <button id="changeLokerSheetBtn" class="btn btn-outline btn-small">⚙ Ganti Sheet</button>
+            </div>
+            <h3>Daftar Lowongan Saat Ini</h3>
+            <div id="jobListAdmin"></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ===== PANEL: DATA PENDAFTARAN ===== -->
+      <section id="panel-pendaftaran" class="panel">
+        <div class="panel-header">
+          <h2>Data Pendaftaran Karyawan</h2>
+          <p>Daftar pelamar yang mengirim data melalui formulir pendaftaran website.</p>
+        </div>
+
+        <div id="sheetNotConfigured" class="card" style="display:none;">
+          <h3>Belum tersambung ke Google Sheets</h3>
+          <p class="hint">Tempel <strong>Web App URL</strong> dari Google Apps Script kamu di bawah ini (sama dengan yang dipakai di Kelola Loker):</p>
+          <div class="config-box">
+            <label>Web App URL</label>
+            <input type="text" id="sheetUrlInput" placeholder="https://script.google.com/macros/s/xxxxx/exec">
+            <button id="saveSheetUrl" class="btn btn-primary" style="width:auto;">Simpan & Muat Data</button>
+          </div>
+        </div>
+
+        <div id="pendaftaranContent" style="display:none;">
+          <div class="stat-row">
+            <div class="stat-total">Total: <strong id="totalPendaftar">0</strong> pendaftar</div>
+            <div class="top-actions" style="margin-bottom:0;">
+              <button id="exportCsvBtn" class="btn btn-primary btn-small">⬇ Ekspor CSV/Excel</button>
+              <button id="refreshDataBtn" class="btn btn-outline btn-small">↺ Muat Ulang</button>
+              <button id="changeSheetBtn" class="btn btn-outline btn-small">⚙ Ganti Sheet</button>
+            </div>
+          </div>
+          <div id="pendaftaranList"></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   PENTING (baca ini kalau mau ganti akun admin):
+   Ini situs statis (HTML biasa), tanpa server/database, jadi
+   login di sini hanya "gembok ringan" di sisi browser saja,
+   BUKAN sistem keamanan sungguhan. Siapa pun yang membuka kode
+   halaman ini bisa melihat username/password di bawah. Jangan
+   pakai password yang sama dengan akun penting lainnya.
+   Ganti nilai ADMIN_USER dan ADMIN_PASS untuk mengubah akun.
+   ========================================================= */
+  var ADMIN_USER = 'admin';
+  var ADMIN_PASS = 'pt.rmp';
+
+  /* Isi otomatis dengan Web App URL Google Apps Script kamu supaya
+     langsung aktif untuk semua orang yang buka admin ini. Kalau
+     dikosongkan, admin akan minta URL-nya lewat kolom isian. */
+  var SHEET_API_URL_DEFAULT = 'https://script.google.com/macros/s/AKfycbzBj-nDTnzqRYR8kNXJX9z3Gv43p7eBdaHH94GuuL0z5DkKxBZZoaA7W3rAQ3FHfjE/exec';
+
+  var SESSION_KEY = 'rmp_admin_session';
+  var SHEET_URL_KEY = 'rmp_sheet_api_url';
+
+  var loginScreen = document.getElementById('loginScreen');
+  var dashboard = document.getElementById('dashboard');
+  var loginForm = document.getElementById('loginForm');
+  var loginError = document.getElementById('loginError');
+
+  function showDashboard(){
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    initLoker();
+    initPendaftaran();
+  }
+
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    showDashboard();
+  }
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var u = document.getElementById('loginUser').value.trim();
+    var p = document.getElementById('loginPass').value;
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      loginError.style.display = 'none';
+      showDashboard();
+    } else {
+      loginError.style.display = 'block';
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+  });
+
+  /* ============ SIDEBAR NAV SWITCHING ============ */
+  var navItems = document.querySelectorAll('.nav-item[data-panel]');
+  navItems.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      navItems.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  /* ============ SHARED: Google Sheets API URL ============ */
+  function getSheetUrl(){
+    return SHEET_API_URL_DEFAULT || localStorage.getItem(SHEET_URL_KEY) || '';
+  }
+  function setSheetUrl(url){
+    localStorage.setItem(SHEET_URL_KEY, url);
+  }
+  function clearSheetUrl(){
+    localStorage.removeItem(SHEET_URL_KEY);
+  }
+
+  /* ============ KELOLA LOKER (Google Sheets) ============ */
+  var jobs = [];
+
+  function initLoker(){
+    var url = getSheetUrl();
+    if (!url) {
+      document.getElementById('lokerNotConfigured').style.display = 'block';
+      document.getElementById('lokerContent').style.display = 'none';
+      return;
+    }
+    document.getElementById('lokerNotConfigured').style.display = 'none';
+    document.getElementById('lokerContent').style.display = 'block';
+    loadJobs();
+  }
+
+  document.getElementById('saveLokerSheetUrl').addEventListener('click', function(){
+    var val = document.getElementById('lokerSheetUrlInput').value.trim();
+    if (!val) { alert('Isi dulu Web App URL-nya.'); return; }
+    setSheetUrl(val);
+    initLoker();
+    initPendaftaran();
+  });
+
+  document.getElementById('changeLokerSheetBtn').addEventListener('click', function(){
+    clearSheetUrl();
+    initLoker();
+    initPendaftaran();
+  });
+
+  document.getElementById('refreshLokerBtn').addEventListener('click', loadJobs);
+
+  function loadJobs(){
+    var url = getSheetUrl();
+    var wrap = document.getElementById('jobListAdmin');
+    wrap.innerHTML = '<div class="loading-msg">Memuat data lowongan...</div>';
+    fetch(url + '?sheet=Loker&_=' + Date.now())
+      .then(function(res){ return res.json(); })
+      .then(function(rows){
+        jobs = (rows || []).map(function(r){
+          return {
+            id: r['ID'], judul: r['Judul'], lokasi: r['Lokasi'], tipe: r['Tipe'],
+            deadline: r['Deadline'], deskripsi: r['Deskripsi'],
+            kualifikasi: r['Kualifikasi'], pdf: r['PDF']
+          };
+        });
+        renderJobList();
+      })
+      .catch(function(){
+        wrap.innerHTML = '<div class="error-msg">Gagal memuat data. Pastikan Web App URL benar dan sudah di-deploy dengan akses "Anyone".</div>';
+      });
+  }
+
+  function renderJobList(){
+    var wrap = document.getElementById('jobListAdmin');
+    wrap.innerHTML = '';
+    if (jobs.length === 0) {
+      wrap.innerHTML = '<div class="empty">Belum ada lowongan. Tambahkan lewat form di atas.</div>';
+      return;
+    }
+    jobs.forEach(function(job){
+      var row = document.createElement('div');
+      row.className = 'job-row';
+      row.innerHTML =
+        '<div>' +
+          '<h4>' + job.judul + '</h4>' +
+          '<div class="meta">' + job.lokasi + ' · ' + (job.tipe || '') + (job.deadline ? ' · Deadline: ' + job.deadline : '') + '</div>' +
+        '</div>' +
+        '<div class="actions">' +
+          '<button class="btn btn-edit" data-id="' + job.id + '">Edit</button>' +
+          '<button class="btn btn-danger" data-id="' + job.id + '">Hapus</button>' +
+        '</div>';
+      row.querySelector('.btn-edit').addEventListener('click', function(){ editJob(job.id); });
+      row.querySelector('.btn-danger').addEventListener('click', function(){ deleteJob(job.id); });
+      wrap.appendChild(row);
+    });
+  }
+
+  var jobForm = document.getElementById('jobForm');
+  var formTitle = document.getElementById('formTitle');
+  var cancelEditBtn = document.getElementById('cancelEdit');
+
+  jobForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var id = document.getElementById('jobId').value;
+    var payload = {
+      sheet: 'Loker',
+      id: id || undefined,
+      judul: document.getElementById('jJudul').value.trim(),
+      lokasi: document.getElementById('jLokasi').value.trim(),
+      tipe: document.getElementById('jTipe').value,
+      deadline: document.getElementById('jDeadline').value,
+      deskripsi: document.getElementById('jDeskripsi').value.trim(),
+      kualifikasi: document.getElementById('jKualifikasi').value.trim()
+    };
+    fetch(getSheetUrl(), {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }).then(function(){
+      alert('Lowongan tersimpan dan langsung aktif di halaman Lowongan Kerja.');
+      resetForm();
+      loadJobs();
+    }).catch(function(){
+      alert('Gagal menyimpan. Cek koneksi & Web App URL kamu.');
+    });
+  });
+
+  function editJob(id){
+    var job = jobs.find(function(j){ return j.id === id; });
+    if (!job) return;
+    document.getElementById('jobId').value = job.id;
+    document.getElementById('jJudul').value = job.judul || '';
+    document.getElementById('jLokasi').value = job.lokasi || '';
+    document.getElementById('jTipe').value = job.tipe || 'Outsourcing - Full Time';
+    document.getElementById('jDeadline').value = job.deadline || '';
+    document.getElementById('jDeskripsi').value = job.deskripsi || '';
+    document.getElementById('jKualifikasi').value = job.kualifikasi || '';
+    formTitle.textContent = 'Edit Lowongan';
+    cancelEditBtn.style.display = 'inline-flex';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function deleteJob(id){
+    if (!confirm('Yakin mau hapus lowongan ini?')) return;
+    fetch(getSheetUrl(), {
+      method: 'POST',
+      body: JSON.stringify({ sheet: 'Loker', action: 'delete', id: id })
+    }).then(function(){ loadJobs(); })
+      .catch(function(){ alert('Gagal menghapus. Coba lagi.'); });
+  }
+
+  function resetForm(){
+    jobForm.reset();
+    document.getElementById('jobId').value = '';
+    formTitle.textContent = 'Tambah Lowongan Baru';
+    cancelEditBtn.style.display = 'none';
+  }
+
+  cancelEditBtn.addEventListener('click', resetForm);
+
+  /* ============ DATA PENDAFTARAN (Google Sheets) ============ */
+  var pendaftarData = [];
+
+  function initPendaftaran(){
+    var url = getSheetUrl();
+    if (!url) {
+      document.getElementById('sheetNotConfigured').style.display = 'block';
+      document.getElementById('pendaftaranContent').style.display = 'none';
+      return;
+    }
+    loadPendaftaran(url);
+  }
+
+  document.getElementById('saveSheetUrl').addEventListener('click', function(){
+    var val = document.getElementById('sheetUrlInput').value.trim();
+    if (!val) { alert('Isi dulu Web App URL-nya.'); return; }
+    setSheetUrl(val);
+    initPendaftaran();
+    initLoker();
+  });
+
+  document.getElementById('changeSheetBtn').addEventListener('click', function(){
+    clearSheetUrl();
+    initPendaftaran();
+    initLoker();
+  });
+
+  document.getElementById('refreshDataBtn').addEventListener('click', function(){
+    loadPendaftaran(getSheetUrl());
+  });
+
+  function loadPendaftaran(url){
+    var listEl = document.getElementById('pendaftaranList');
+    listEl.innerHTML = '<div class="loading-msg">Memuat data pendaftar...</div>';
+    document.getElementById('sheetNotConfigured').style.display = 'none';
+    document.getElementById('pendaftaranContent').style.display = 'block';
+
+    fetch(url + '?sheet=Pendaftaran&_=' + Date.now())
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        pendaftarData = data || [];
+        renderPendaftaran();
+      })
+      .catch(function(){
+        listEl.innerHTML = '<div class="error-msg">Gagal memuat data. Pastikan Web App URL benar dan sudah di-deploy dengan akses "Anyone".</div>';
+        document.getElementById('totalPendaftar').textContent = '0';
+        document.getElementById('pendaftaranBadge').textContent = '0';
+      });
+  }
+
+  function renderPendaftaran(){
+    var listEl = document.getElementById('pendaftaranList');
+    var total = pendaftarData.length;
+    document.getElementById('totalPendaftar').textContent = total;
+    document.getElementById('pendaftaranBadge').textContent = total;
+
+    if (total === 0) {
+      listEl.innerHTML = '<div class="empty">Belum ada pelamar yang mengirim formulir.</div>';
+      return;
+    }
+
+    listEl.innerHTML = '';
+    pendaftarData.slice().reverse().forEach(function(p, idx){
+      var card = document.createElement('div');
+      card.className = 'pendaftar-card';
+      var telp = p['Telp'] || '';
+      var waLink = telp ? '<a class="wa-link" href="https://wa.me/62' + String(telp).replace(/^0/,'') + '" target="_blank">💬 Hubungi via WhatsApp</a>' : '';
+      card.innerHTML =
+        '<div class="pendaftar-top">' +
+          '<div>' +
+            '<div class="pendaftar-name">#' + (total - idx) + ' — ' + (p['Nama'] || '-') + '</div>' +
+            '<div class="pendaftar-sub">JOB: <strong>' + (p['Posisi'] || '-') + '</strong> | Area: ' + (p['Area'] || '-') + ' · Telp: ' + (telp || '-') + '</div>' +
+          '</div>' +
+          '<div class="pendaftar-time">' + (p['Waktu'] || '') + '</div>' +
+        '</div>' +
+        '<div class="pendaftar-grid">' +
+          field('Posisi', p['Posisi']) + field('Area', p['Area']) +
+          field('Tanggal Gabung', p['Tanggal Gabung']) + field('No. KTP', p['KTP']) +
+          field('Jenis Kelamin', p['Jenis Kelamin']) + field('Status', p['Status']) +
+          field('Tempat/Tgl Lahir', p['TTL']) + field('Email', p['Email']) +
+          field('Pendidikan', p['Pendidikan']) + field('Bank', p['Bank']) +
+          field('No. Rekening', p['No Rekening']) + field('Alamat', p['Alamat']) +
+          field('Catatan', p['Catatan']) +
+        '</div>' +
+        waLink +
+        '<div style="margin-top:14px;"><button class="btn btn-danger btn-hapus-pendaftar" data-id="' + p['ID'] + '">Hapus</button></div>';
+      card.querySelector('.btn-hapus-pendaftar').addEventListener('click', function(){ deletePendaftar(p['ID']); });
+      listEl.appendChild(card);
+    });
+  }
+
+  function deletePendaftar(id){
+    if (!confirm('Yakin mau hapus data pelamar ini?')) return;
+    fetch(getSheetUrl(), {
+      method: 'POST',
+      body: JSON.stringify({ sheet: 'Pendaftaran', action: 'delete', id: id })
+    }).then(function(){ loadPendaftaran(getSheetUrl()); })
+      .catch(function(){ alert('Gagal menghapus. Coba lagi.'); });
+  }
+
+  function field(label, value){
+    return '<div class="pdf-item"><label>' + label + '</label><div>' + (value || '-') + '</div></div>';
+  }
+
+  document.getElementById('exportCsvBtn').addEventListener('click', function(){
+    if (pendaftarData.length === 0) { alert('Belum ada data untuk diekspor.'); return; }
+    var headers = Object.keys(pendaftarData[0]);
+    var csvRows = [headers.join(',')];
+    pendaftarData.forEach(function(row){
+      csvRows.push(headers.map(function(h){
+        var val = String(row[h] || '').replace(/"/g, '""');
+        return '"' + val + '"';
+      }).join(','));
+    });
+    var blob = new Blob([csvRows.join('\n')], {type:'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'Data_Pendaftaran_RMP.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>

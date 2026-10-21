@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lowongan Kerja — PT Rusyida Mitra Perkasa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0F2A3D;
+    --navy-deep: #091C29;
+    --gold: #C9A24B;
+    --gold-light: #E4C77A;
+    --cream: #FAFAF7;
+    --ink: #1C2B33;
+    --slate: #5B6B73;
+    --line: #E4E1D8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif;font-weight:600;color:var(--navy);line-height:1.15;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header{position:sticky;top:0;z-index:100;background:var(--navy);border-bottom:2px solid var(--gold);}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1180px;margin:0 auto;}
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-mark{width:42px;height:42px;border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:3px;}
+  .logo-mark img{width:100%;height:100%;object-fit:contain;display:block;}
+  .logo-text{color:#fff;}
+  .logo-text .name{font-family:'Fraunces',serif;font-weight:600;font-size:16px;letter-spacing:.3px;}
+  .logo-text .tagline{font-size:10.5px;color:var(--gold-light);letter-spacing:1.5px;text-transform:uppercase;}
+  nav{display:flex;gap:2px;align-items:center;}
+  nav a{color:#EDEEF0;font-size:14.5px;font-weight:500;padding:10px 16px;border-radius:6px;transition:.2s;}
+  nav a:hover{background:rgba(255,255,255,.08);color:var(--gold-light);}
+  nav a.active{color:var(--gold-light);background:rgba(255,255,255,.06);}
+  .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;}
+
+  .hero{
+    background:linear-gradient(160deg,var(--navy-deep) 0%, var(--navy) 55%, #14374D 100%);
+    color:#fff;position:relative;overflow:hidden;padding:80px 24px 60px;
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold-light);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;}
+  .eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+  .hero h1{font-size:clamp(30px,4.4vw,46px);max-width:720px;color:#fff;margin-bottom:16px;}
+  .hero p.lead{max-width:560px;font-size:16px;color:#C7D1D8;}
+
+  section{padding:64px 24px;}
+  .job-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .job-card{
+    border:1px solid var(--line);border-radius:14px;padding:30px;background:#fff;
+    transition:.25s;display:flex;flex-direction:column;
+  }
+  .job-card:hover{border-color:var(--gold);box-shadow:0 12px 30px -18px rgba(15,42,61,.35);transform:translateY(-3px);}
+  .job-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .job-tag{
+    font-size:12px;font-weight:600;letter-spacing:.3px;color:var(--navy);
+    background:var(--cream);border:1px solid var(--line);padding:5px 12px;border-radius:20px;
+  }
+  .job-card h3{font-size:20px;margin-bottom:6px;}
+  .job-loc{color:var(--slate);font-size:13.5px;margin-bottom:14px;}
+  .job-desc{color:var(--slate);font-size:14.5px;margin-bottom:10px;}
+  .job-quali{color:var(--slate);font-size:13.5px;margin-bottom:20px;}
+  .job-quali strong{color:var(--ink);}
+  .job-deadline{font-size:13px;color:var(--gold);font-weight:600;margin-bottom:18px;}
+  .job-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:8px;font-weight:600;font-size:14px;transition:.2s;cursor:pointer;border:none;}
+  .btn-primary{background:var(--navy);color:#fff;}
+  .btn-primary:hover{background:var(--navy-deep);}
+  .btn-outline{background:transparent;color:var(--navy);border:1.5px solid var(--line);}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+  .empty-state{
+    text-align:center;padding:60px 24px;color:var(--slate);border:1px dashed var(--line);border-radius:14px;
+  }
+
+  footer{background:var(--navy-deep);color:#C7D1D8;padding:64px 24px 28px;}
+  .footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:48px;}
+  .footer-brand .logo-text .name{color:#fff;}
+  .footer-brand p{font-size:13.5px;color:#8DA0AA;margin-top:14px;max-width:280px;}
+  footer h4{color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;font-weight:600;}
+  footer ul{list-style:none;}
+  footer li{margin-bottom:10px;}
+  footer a{color:#9FB0B9;font-size:14px;transition:.2s;}
+  footer a:hover{color:var(--gold-light);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#7690A0;}
+
+  .wa-float{
+    position:fixed;bottom:26px;right:26px;z-index:200;display:flex;align-items:center;gap:10px;
+    background:#25D366;color:#fff;padding:14px 18px;border-radius:50px;
+    box-shadow:0 10px 28px -8px rgba(37,211,102,.55);font-weight:600;font-size:14px;transition:.25s;
+  }
+  .wa-float:hover{transform:translateY(-3px);box-shadow:0 14px 32px -8px rgba(37,211,102,.65);}
+  .wa-float svg{width:24px;height:24px;flex-shrink:0;}
+  .wa-text{max-width:0;overflow:hidden;white-space:nowrap;transition:.3s;}
+  .wa-float:hover .wa-text{max-width:160px;}
+
+  /* ===== FORM LAMARAN ===== */
+  .apply-section{background:#fff;border-top:1px solid var(--line);}
+  .apply-card{
+    max-width:900px;margin:0 auto;background:var(--cream);border:1px solid var(--line);
+    border-radius:16px;padding:40px;
+  }
+  .apply-card > p.apply-lead{color:var(--slate);font-size:14.5px;margin-bottom:34px;}
+  .form-section-title{
+    font-family:'Fraunces',serif;color:var(--navy);font-size:15px;font-weight:600;
+    letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;
+  }
+  .form-section-divider{
+    height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:24px;
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;margin-bottom:34px;}
+  .form-field{display:flex;flex-direction:column;}
+  .form-field.full{grid-column:1 / -1;}
+  .form-field label{
+    font-size:12.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--navy);margin-bottom:8px;
+  }
+  .form-field label .req{color:var(--gold);margin-left:2px;}
+  .form-field input, .form-field select, .form-field textarea{
+    padding:13px 14px;border:1px solid var(--line);border-radius:8px;
+    font-family:'Inter',sans-serif;font-size:14.5px;background:#fff;color:var(--ink);
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{
+    outline:none;border-color:var(--gold);
+  }
+  .form-field textarea{resize:vertical;min-height:80px;}
+  .bank-row{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;}
+  .apply-note{
+    background:#FFF7E6;border:1px solid var(--gold-light);color:#6B4E14;
+    font-size:13.5px;padding:14px 16px;border-radius:10px;margin-bottom:26px;line-height:1.6;
+  }
+  .apply-submit{width:100%;justify-content:center;padding:16px;font-size:15.5px;}
+
+  @media(max-width:900px){
+    nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--navy);border-bottom:2px solid var(--gold);padding:8px 16px 16px;}
+    nav.nav-open{display:flex;}
+    nav a{padding:12px 8px;border-radius:4px;}
+    .header-inner{position:relative;flex-wrap:wrap;}
+    .menu-toggle{display:block;}
+    .job-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .apply-card{padding:26px 20px;}
+    .bank-row{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark"><img src="logo_1.jpeg" alt="Logo PT Rusyida Mitra Perkasa"></div>
+      <div class="logo-text">
+        <div class="name">Rusyida Mitra Perkasa</div>
+        <div class="tagline">Mitra Outsourcing Tenaga Kerja</div>
+      </div>
+    </a>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="galeri.html">Galeri</a>
+      <a href="portofolio.html">Portofolio</a>
+      <a href="kerjasama.html">Kerja Sama</a>
+      <a href="lowongan.html" class="active">Lowongan Kerja</a>
+      <a href="kontak.html">Kontak</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+    <button class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Karir · PT Rusyida Mitra Perkasa</div>
+    <h1>Lowongan Kerja Terbaru</h1>
+    <p class="lead">Bergabunglah dengan jaringan tenaga kerja profesional kami. Berikut posisi yang sedang kami buka untuk penempatan di perusahaan mitra.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div id="jobList" class="job-grid"></div>
+    <div id="emptyState" class="empty-state" style="display:none;">
+      <h3>Belum ada lowongan yang dibuka</h3>
+      <p>Silakan cek kembali secara berkala atau hubungi kami langsung via WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<section class="apply-section">
+  <div class="container">
+    <div class="section-head" style="margin-left:auto;margin-right:auto;text-align:center;">
+      <div class="eyebrow" style="color:var(--navy);">Form Lamaran</div>
+      <h2>Daftar Sebagai Pelamar</h2>
+      <p>Isi data di bawah ini dengan lengkap dan benar. Data kamu akan langsung diterima oleh tim rekrutmen kami.</p>
+    </div>
+
+    <div class="apply-card">
+      <div class="apply-note">
+        ✅ Setelah klik "Kirim Lamaran", data kamu akan langsung tercatat di sistem pendaftaran kami. Tim kami akan menghubungi kamu lewat telepon/WhatsApp/email yang kamu isi jika lolos seleksi awal.
+      </div>
+
+      <form id="applyForm">
+        <div class="form-section-title">Informasi Pekerjaan</div>
+        <div class="form-section-divider"></div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Posisi yang Dilamar <span class="req">*</span></label>
+            <select id="aJob" required>
+              <option value="">— Pilih Posisi —</option>
+              <option>Security</option>
+              <option>Cleaning Service</option>
+              <option>Staff Pabrik</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Area / Lokasi Penempatan</label>
+            <input type="text" id="aArea" placeholder="Contoh: Semarang, Kudus, dll. (opsional)">
+          </div>
+          <div class="form-field full">
+            <label>Tanggal Siap Bergabung</label>
+            <input type="date" id="aTanggalGabung">
+          </div>
+        </div>
+
+        <div class="form-section-title">Data Diri Pelamar</div>
+        <div class="form-section-divider"></div>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="aNama" placeholder="Sesuai KTP" required>
+          </div>
+          <div class="form-field">
+            <label>Nomor KTP (NIK) <span class="req">*</span></label>
+            <input type="text" id="aKtp" placeholder="16 digit NIK KTP" maxlength="16" required>
+          </div>
+          <div class="form-field">
+            <label>Jenis Kelamin <span class="req">*</span></label>
+            <select id="aGender" required>
+              <option value="">— Pilih —</option>
+              <option>Laki-laki</option>
+              <option>Perempuan</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Status Pernikahan <span class="req">*</span></label>
+            <select id="aStatus" required>
+              <option value="">— Pilih Status —</option>
+              <option>Belum Menikah</option>
+              <option>Menikah</option>
+              <option>Cerai</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tempat & Tanggal Lahir <span class="req">*</span></label>
+            <input type="text" id="aTtl" placeholder="Contoh: Semarang, 01 Januari 2000" required>
+          </div>
+          <div class="form-field">
+            <label>No. Telepon / WA <span class="req">*</span></label>
+            <input type="text" id="aTelp" placeholder="08xxxxxxxxxx" required>
+          </div>
+          <div class="form-field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="aEmail" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-field">
+            <label>Pendidikan Terakhir</label>
+            <select id="aPendidikan">
+              <option value="">— Pilih —</option>
+              <option>SD</option>
+              <option>SMP</option>
+              <option>SMA/SMK</option>
+              <option>D3</option>
+              <option>S1</option>
+              <option>S2</option>
+              <option>S3</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label>Rekening (Bank & No. Rekening)</label>
+            <div class="bank-row">
+              <select id="aBank">
+                <option value="">— Bank —</option>
+                <option>BRI</option>
+                <option>BCA</option>
+                <option>Mandiri</option>
+                <option>BNI</option>
+                <option>Lainnya</option>
+              </select>
+              <input type="text" id="aNoRek" placeholder="Nomor rekening">
+            </div>
+          </div>
+          <div class="form-field full">
+            <label>Alamat Lengkap <span class="req">*</span></label>
+            <textarea id="aAlamat" placeholder="Alamat sesuai domisili saat ini" required></textarea>
+          </div>
+          <div class="form-field full">
+            <label>Catatan Tambahan</label>
+            <textarea id="aCatatan" placeholder="Opsional — info tambahan yang ingin disampaikan"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary apply-submit">Kirim Lamaran</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text"><div class="name">Rusyida Mitra Perkasa</div></div>
+        <p>Mitra tepercaya penyedia jasa tenaga kerja profesional di Semarang, Jawa Tengah.</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="profil.html">Profil Perusahaan</a></li>
+          <li><a href="galeri.html">Galeri Kegiatan</a></li>
+          <li><a href="portofolio.html">Portofolio</a></li>
+          <li><a href="lowongan.html">Lowongan Kerja</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="kontak.html">Security & Cleaning Service</a></li>
+          <li><a href="kerjasama.html">Staff Pabrik & Produksi</a></li>
+          <li><a href="kontak.html">Tenaga Administrasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontak</h4>
+        <ul>
+          <li>Plalangan, kec.Gunungpati, Gunungpati, Semarang</li>
+          <li><a href="mailto:rusyida.rmp@gmail.com">rusyida.rmp@gmail.com</a></li>
+          <li><a href="https://wa.me/859-3036-3231" onclick="return openWhatsApp(event,'859-3036-3231')">+62 859-3036-3231 (WhatsApp)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 PT Rusyida Mitra Perkasa. Seluruh hak cipta dilindungi.</div>
+      <div>Gunungpati, Semarang, Jawa Tengah</div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/859-3036-3231" class="wa-float" onclick="return openWhatsApp(event,'859-3036-3231')">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2m0 1.67c2.2 0 4.26.86 5.82 2.42a8.19 8.19 0 012.41 5.83c0 4.55-3.7 8.24-8.24 8.24-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.32a8.2 8.2 0 01-1.26-4.38c0-4.55 3.7-8.25 8.25-8.25M8.53 7.33c-.16 0-.43.06-.66.31-.22.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.54.13.17 1.76 2.67 4.25 3.73.59.27 1.06.42 1.42.54.6.19 1.14.16 1.57.1.48-.07 1.46-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.29-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.15.17-.29.18-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.39-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.24-.41.08-.17.04-.31-.02-.43-.06-.13-.56-1.36-.78-1.85-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.47-.01z"/></svg>
+  <span class="wa-text">Chat via WhatsApp</span>
+</a>
+
+<script>
+function goToWhatsApp(phone, text){
+  var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+  var msg = text ? encodeURIComponent(text) : '';
+  var webUri = 'https://wa.me/' + phone + (msg ? '?text=' + msg : '');
+  if (isMobile) { window.location.href = webUri; return; }
+  var desktopUri = 'whatsapp://send?phone=' + phone + (msg ? '&text=' + msg : '');
+  var didHide = false;
+  function onVisibilityChange(){ if (document.hidden) didHide = true; }
+  document.addEventListener('visibilitychange', onVisibilityChange);
+  window.location.href = desktopUri;
+  setTimeout(function(){
+    document.removeEventListener('visibilitychange', onVisibilityChange);
+    if (!didHide) { window.open(webUri, '_blank'); }
+  }, 1200);
+}
+function openWhatsApp(evt, phone, text){
+  if (evt && evt.preventDefault) evt.preventDefault();
+  goToWhatsApp(phone, text);
+  return false;
+}
+
+var menuToggleBtn = document.querySelector('.menu-toggle');
+var mainNav = document.querySelector('header nav');
+if (menuToggleBtn && mainNav) {
+  menuToggleBtn.addEventListener('click', function () {
+    var isOpen = mainNav.classList.toggle('nav-open');
+    menuToggleBtn.textContent = isOpen ? '✕' : '☰';
+  });
+  mainNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      mainNav.classList.remove('nav-open');
+      menuToggleBtn.textContent = '☰';
+    });
+  });
+}
+
+function formatDate(str){
+  if(!str) return '';
+  var d = new Date(str + 'T00:00:00');
+  if (isNaN(d.getTime())) return str;
+  var bulan = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  return d.getDate() + ' ' + bulan[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function renderJobs(jobs){
+  var listEl = document.getElementById('jobList');
+  var emptyEl = document.getElementById('emptyState');
+  listEl.innerHTML = '';
+  if (!jobs || jobs.length === 0) {
+    emptyEl.style.display = 'block';
+    return;
+  }
+  emptyEl.style.display = 'none';
+  jobs.forEach(function(job){
+    var card = document.createElement('div');
+    card.className = 'job-card';
+    var pdfBtn = '';
+    if (job.pdf) {
+      pdfBtn = '<a class="btn btn-outline" href="' + job.pdf + '" target="_blank" rel="noopener">Lihat Detail (PDF)</a>';
+    }
+    var waText = 'Halo, saya ingin melamar untuk posisi ' + job.judul + '.';
+    card.innerHTML =
+      '<div class="job-tags"><span class="job-tag">' + (job.tipe || 'Full Time') + '</span></div>' +
+      '<h3>' + job.judul + '</h3>' +
+      '<div class="job-loc">📍 ' + (job.lokasi || '-') + '</div>' +
+      '<p class="job-desc">' + (job.deskripsi || '') + '</p>' +
+      (job.kualifikasi ? '<p class="job-quali"><strong>Kualifikasi:</strong> ' + job.kualifikasi + '</p>' : '') +
+      (job.deadline ? '<div class="job-deadline">Batas lamaran: ' + formatDate(job.deadline) + '</div>' : '') +
+      '<div class="job-actions">' +
+        '<a class="btn btn-primary" href="https://wa.me/859-3036-3231?text=' + encodeURIComponent(waText) + '" onclick="return openWhatsApp(event,\'6281326619901\',\'' + waText.replace(/'/g,"") + '\')">Lamar via WhatsApp</a>' +
+        pdfBtn +
+      '</div>';
+    listEl.appendChild(card);
+  });
+}
+
+/* Isi otomatis dengan Web App URL Google Apps Script yang sama
+   dengan yang dipakai di admin.html, supaya semua pengunjung
+   melihat data loker yang sama. Kalau dikosongkan, akan pakai
+   jobs.json sebagai cadangan. */
+var SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzBj-nDTnzqRYR8kNXJX9z3Gv43p7eBdaHH94GuuL0z5DkKxBZZoaA7W3rAQ3FHfjE/exec';
+
+function loadJobsPublic(){
+  if (SHEET_API_URL) {
+    fetch(SHEET_API_URL + '?sheet=Loker&_=' + Date.now())
+      .then(function(res){ return res.json(); })
+      .then(function(rows){
+        var jobs = (rows || []).map(function(r){
+          return {
+            id: r['ID'], judul: r['Judul'], lokasi: r['Lokasi'], tipe: r['Tipe'],
+            deadline: r['Deadline'], deskripsi: r['Deskripsi'],
+            kualifikasi: r['Kualifikasi'], pdf: r['PDF']
+          };
+        });
+        renderJobs(jobs);
+      })
+      .catch(function(){ loadJobsFromJsonFallback(); });
+  } else {
+    loadJobsFromJsonFallback();
+  }
+}
+
+function loadJobsFromJsonFallback(){
+  fetch('jobs.json?_=' + Date.now())
+    .then(function(res){ return res.json(); })
+    .then(function(jobs){ renderJobs(jobs); })
+    .catch(function(){
+      document.getElementById('emptyState').style.display = 'block';
+      document.getElementById('emptyState').innerHTML = '<h3>Belum ada lowongan yang dibuka</h3><p>Silakan cek kembali secara berkala atau hubungi kami langsung via WhatsApp.</p>';
+    });
+}
+
+loadJobsPublic();
+
+var applyForm = document.getElementById('applyForm');
+if (applyForm) {
+  applyForm.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var val = function(id){ return document.getElementById(id).value.trim(); };
+    var nama = val('aNama') || 'Pelamar';
+    var posisi = val('aJob');
+
+    var payload = {
+      sheet: 'Pendaftaran',
+      posisi: posisi,
+      area: val('aArea'),
+      tanggalGabung: val('aTanggalGabung'),
+      nama: nama,
+      ktp: val('aKtp'),
+      gender: val('aGender'),
+      status: val('aStatus'),
+      ttl: val('aTtl'),
+      telp: val('aTelp'),
+      email: val('aEmail'),
+      pendidikan: val('aPendidikan'),
+      bank: val('aBank'),
+      noRek: val('aNoRek'),
+      alamat: val('aAlamat'),
+      catatan: val('aCatatan')
+    };
+
+    if (!SHEET_API_URL) {
+      alert('Mohon maaf, sistem pendaftaran online sedang dalam penyempurnaan. Silakan hubungi kami langsung via WhatsApp untuk melamar.');
+      var waMessage = 'Halo, saya ' + nama + ' ingin melamar sebagai ' + posisi + '.';
+      goToWhatsApp('859-3036-3231', waMessage);
+      return;
+    }
+
+    var submitBtn = applyForm.querySelector('button[type="submit"]');
+    var originalLabel = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Mengirim...';
+
+    fetch(SHEET_API_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    }).then(function(){
+      alert('Lamaran kamu berhasil dikirim! Tim kami akan menghubungi kamu jika lolos seleksi awal.');
+      applyForm.reset();
+    }).catch(function(){
+      alert('Maaf, lamaran gagal terkirim karena kendala koneksi. Silakan coba lagi atau hubungi kami via WhatsApp.');
+    }).finally(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    });
+  });
+}
+</script>
+</body>
+</html>
